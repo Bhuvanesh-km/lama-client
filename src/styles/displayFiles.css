@@ -1,0 +1,124 @@
+.display-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+.advertisement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: rgba(126, 34, 206, 1);
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: center;
+}
+
+.advertisement > button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  border: 0.6px solid rgba(153, 153, 153, 1);
+  border-radius: 5px;
+  background-color: white;
+
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.advertisement > button:hover {
+  background-color: rgba(153, 153, 153, 1);
+}
+
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.grid-header,
+.grid-row {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+
+.grid-header {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.grid-cell-1,
+.grid-cell-2,
+.grid-cell-3,
+.grid-cell-4 {
+  padding: 10px;
+  text-align: center;
+  align-self: center;
+}
+
+.grid-cell-1 {
+  flex: 1;
+}
+.grid-cell-2 {
+  flex: 2;
+}
+.grid-cell-3 {
+  flex: 3;
+}
+.grid-cell-4 {
+  flex: 4;
+}
+.grid-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.grid-row:last-child {
+  border-bottom: none;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 5px;
+  text-align: center;
+  /* background-color: rgba(217, 217, 217, 1); */
+  color: rgba(60, 60, 60, 1);
+  border: 0.89px solid rgba(217, 217, 217, 1);
+  cursor: pointer;
+}
+
+.delete-btn {
+  color: rgba(255, 39, 76, 1);
+  /* color: white; */
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: rgba(255, 39, 76, 1);
+  color: white;
+}
+
+.edit-btn {
+  color: rgba(0, 123, 255, 1);
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+  background-color: rgba(0, 123, 255, 1);
+  color: white;
+}
