@@ -42,7 +42,18 @@ const Login = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div>
+          <h1>Loading...</h1>
+          <h3>
+            backend is deployed on a free Render instance. The first request to
+            a free instance will spin down with inactivity, which can delay
+            requests by 50 seconds or more.
+          </h3>
+        </div>
+      </div>
+    );
   }
   return (
     <div className="login-container">
