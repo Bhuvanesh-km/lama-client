@@ -5,9 +5,6 @@ import "../styles/projectsList.css";
 import ProjectCard from "./ProjectCard";
 import ModalProject from "./ModalProject";
 
-import URL from "../urlConfig";
-import axios from "axios";
-
 const ProjectsList = ({ projectList }) => {
   return (
     <div className="projects-container">
@@ -24,7 +21,7 @@ const ProjectsList = ({ projectList }) => {
           // map through the project list and display each project
           projectList.map((project) => (
             <ProjectCard
-              key={project.id}
+              key={project._id}
               projectName={project.name}
               episodes={project.episodes}
             />

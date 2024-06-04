@@ -6,6 +6,13 @@ import "../styles/modalProject.css";
 import { useDispatch } from "react-redux";
 import { actions } from "../redux/slices/projectSlice";
 
+import { useAuth } from "../context/authContext";
+import URL from "../urlConfig";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+axios.defaults.withCredentials = true;
+
 const customStyles = {
   content: {
     top: "50%",
@@ -23,6 +30,9 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 const ModalProject = () => {
+  const { authenticatedUser } = useAuth();
+  const navigate = useNavigate();
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [error, setError] = useState(null);
 
@@ -31,6 +41,10 @@ const ModalProject = () => {
   const dispatch = useDispatch();
 
   function openModal() {
+    if (!authenticatedUser.id) {
+      navigate("/login");
+      return;
+    }
     setModalIsOpen(true);
   }
 
@@ -38,7 +52,7 @@ const ModalProject = () => {
     setModalIsOpen(false);
   }
 
-  const createProject = (e) => {
+  const createProject = async (e) => {
     e.preventDefault();
     const name = inputRef.current.value;
     if (!name) {
@@ -46,9 +60,15 @@ const ModalProject = () => {
       return;
     }
     console.log(name);
-    dispatch(
-      actions.addProject({ name, id: Date.now(), episodes: 0, files: [] })
-    );
+    try {
+      const response = await axios.post(URL.POST_PROJECT_URL, {
+        name,
+      });
+      console.log(response.data);
+      dispatch(actions.addProject(response.data.data));
+    } catch (err) {
+      console.log(err);
+    }
     setError(null);
     closeModal();
   };

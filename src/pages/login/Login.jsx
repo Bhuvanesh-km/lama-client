@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import axios from "axios";
 import URL from "../../urlConfig";
+import { Link } from "react-router-dom";
 
 import "./login.css";
 
@@ -64,6 +65,9 @@ const Login = () => {
             value={password}
             onChange={handlePasswordChange}
           />
+        </div>
+        <div>
+          <Link to="/signup">Don't have an account? Sign up</Link>
         </div>
         <button type="submit" className="login-btn">
           Login

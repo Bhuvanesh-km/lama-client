@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/dashboard.css";
 import ProjectsList from "./ProjectsList";
 import ModalProject from "./ModalProject";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useAuth } from "../context/authContext";
+import URL from "../urlConfig";
+import { actions } from "../redux/slices/projectSlice";
+
+axios.defaults.withCredentials = true;
 
 const Dashboard = () => {
+  const { authenticatedUser } = useAuth();
+  const dispatch = useDispatch();
   const projectList = useSelector((state) => state.project.projects);
+
+  useEffect(() => {
+    try {
+      const getProjectsByUser = async () => {
+        const response = await axios.get(URL.GET_PROJECTS_BY_USER_URL);
+        console.log(response.data);
+
+        dispatch(actions.addFetchedProjects(response.data.data));
+      };
+      if (authenticatedUser.id) {
+        getProjectsByUser();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   return (
     <>
       {projectList.length > 0 ? (

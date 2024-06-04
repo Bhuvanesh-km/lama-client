@@ -26,6 +26,9 @@ const projectSlice = createSlice({
     addProject(state, action) {
       state.projects.push(action.payload);
     },
+    addFetchedProjects(state, action) {
+      state.projects = action.payload;
+    },
     addFiletoProject(state, action) {
       const name = action.payload.name;
       const { id, fileName, fileLink } = action.payload.file;

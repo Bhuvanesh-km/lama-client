@@ -11,8 +11,8 @@ import Settings from "./components/Settings";
 
 import AuthProvider from "./context/authContext";
 import RequireAuth from "./components/RequireAuth";
-import CreateProjects from "./pages/CreateProjects";
 import Login from "./pages/login/Login";
+import SignUp from "./pages/signUp/SignUp";
 
 function App() {
   return (
@@ -21,7 +21,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route element={<RequireAuth />}>
-            <Route path="/projects" element={<CreateProjects />} />
             <Route path={`:name/`} element={<ProjectUpload />}>
               <Route path="project-upload" element={<Upload />} />
               <Route path="transcript" element={<Transcript />} />
@@ -33,6 +32,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
           </Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AuthProvider>
