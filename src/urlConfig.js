@@ -7,6 +7,7 @@ const urlConfig = {
   POST_PROJECT_URL: `${BASE_URL}/api/project/`,
   GET_PROJECTS_BY_USER_URL: `${BASE_URL}/api/user/projects`,
   POST_FILES_TO_PROJECT_URL: `${BASE_URL}/api/project/:projectId`,
+  PATCH_USERNAME_URL: `${BASE_URL}/api/user/`,
 };
 
 export default urlConfig;

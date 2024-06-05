@@ -1,12 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/settings.css";
 import SideBar from "./SideBar";
 import "../styles/settings.css";
 import ProjectNav from "./ProjectNav";
+import { useAuth } from "../context/authContext";
+import axios from "axios";
+import URL from "../urlConfig";
 
 const Settings = () => {
-  const userName = "alphauser";
-  const userEmail = "alphauser@gmail.com";
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [onUsernameChange, setOnUsernameChange] = useState(false);
+  const { authenticatedUser } = useAuth();
+
+  useEffect(() => {
+    console.log("userid", authenticatedUser.id);
+    setUserName(authenticatedUser.username);
+    setEmail(authenticatedUser.email);
+  }, []);
+
+  const updateUserName = async () => {
+    try {
+      const res = await axios.patch(
+        `${URL.PATCH_USERNAME_URL}/${authenticatedUser.id}`,
+        {
+          withCredentials: true,
+          username: userName,
+        }
+      );
+      if (res.status !== 200) {
+        throw new Error("Failed to update username");
+      }
+
+      authenticatedUser.username = userName;
+      setOnUsernameChange(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handelUserNameChange = (e) => {
+    setOnUsernameChange(true);
+    setUserName(e.target.value);
+  };
+
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -29,11 +66,23 @@ const Settings = () => {
                   value={userName}
                   name="username"
                   id="username"
+                  onChange={handelUserNameChange}
                 />
+                {onUsernameChange && (
+                  <button className="save-btn" onClick={updateUserName}>
+                    Save
+                  </button>
+                )}
               </div>
               <div className="form-item">
                 <label htmlFor="email">Email</label>
-                <input type="text" name="email" id="email" value={userEmail} />
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  value={email}
+                  readOnly
+                />
               </div>
             </div>
 
