@@ -18,7 +18,7 @@ const Upload = () => {
     projectList.map((project) => {
       if (project.name == params.name) {
         setProjectFiles(project.files);
-        console.log(project.files);
+        // console.log(project.files);
       }
     });
   }, [projectList]);

@@ -1,12 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProjectNav from "./ProjectNav";
 
 import "../styles/widgetConfig.css";
 import GeneralForm from "./GeneralForm";
 import DisplayForm from "./DisplayForm";
+import { useAuth } from "../context/authContext";
+
+import axios from "axios";
+import URL from "../urlConfig";
+import { actions } from "../redux/slices/widgetSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const WidgetConfigurations = () => {
   const [activeTab, setActiveTab] = useState("general");
+
+  const dispatch = useDispatch();
+  // const widgetData = useSelector((state) => state.widgetData); // get the widget data from the redux store
+
+  const { authenticatedUser } = useAuth();
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const res = await axios.get(
+          `${URL.GET_WIDGETS_BY_USER_URL}${authenticatedUser._id}`,
+          {
+            withCredentials: true,
+          }
+        );
+        const widgetData = res.data.data[0];
+        dispatch(actions.addFetchedWidgetData(widgetData));
+      };
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
     <div className="widget-container">
       <ProjectNav />

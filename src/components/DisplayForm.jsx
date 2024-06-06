@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import "../styles/displayForm.css";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../redux/slices/widgetSlice";
 
 const DisplayForm = () => {
-  const [primarycolor, setPrimaryColor] = useState("#000000");
-  const [fontcolor, setFontColor] = useState("#000000");
+  const widgetData = useSelector((state) => state.widget.widgetData);
+  const dispatch = useDispatch();
 
-  const handlePrimaryColorChange = (e) => {
-    setPrimaryColor(e.target.value);
+  const handelDisplayFormChange = (e) => {
+    const { name, value } = e.target;
+
+    dispatch(actions.updateWidgetData({ ...widgetData, [name]: value }));
   };
+
   return (
     <form className="widget-form-body">
       <div className="widget-form-top">
@@ -17,16 +22,19 @@ const DisplayForm = () => {
               <label htmlFor="primary-color">Primary Color</label>
               <div className="form-color-input">
                 <input
+                  name="primarycolor"
+                  id="primaryColor"
                   type="text"
-                  value={primarycolor}
+                  value={widgetData.primaryColor}
                   className="hex-color-input"
+                  onChange={handelDisplayFormChange}
                 />
                 <input
                   type="color"
-                  name="primary-color"
-                  id="primary-color"
-                  value={primarycolor}
-                  onChange={handlePrimaryColorChange}
+                  name="primaryColor"
+                  id="primary-color-id"
+                  value={widgetData.primarycolor}
+                  onChange={handelDisplayFormChange}
                   className="color-input"
                 />
               </div>
@@ -35,10 +43,11 @@ const DisplayForm = () => {
                 <label htmlFor="font-size">Font Size (in px)</label>
                 <input
                   type="number"
-                  name="font-size"
+                  name="fontSize"
                   id="font-size"
                   min={1}
-                  value={12}
+                  value={widgetData.fontSize}
+                  onChange={handelDisplayFormChange}
                 />
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
               </div>
@@ -49,16 +58,19 @@ const DisplayForm = () => {
               <label htmlFor="font-color">Font Color</label>
               <div className="form-color-input">
                 <input
+                  name="fontcolor"
+                  id="fontcolor"
                   type="text"
-                  value={fontcolor}
+                  value={widgetData.fontColor}
                   className="hex-color-input"
+                  onChange={handelDisplayFormChange}
                 />
                 <input
                   type="color"
-                  name="font-color"
+                  name="fontColor"
                   id="font-color"
-                  value={fontcolor}
-                  onChange={(e) => setFontColor(e.target.value)}
+                  value={widgetData.fontcolor}
+                  onChange={handelDisplayFormChange}
                   className="color-input"
                 />
               </div>
@@ -70,9 +82,10 @@ const DisplayForm = () => {
               </label>
               <input
                 type="text"
-                name="chat-height"
+                name="chatHeight"
                 id="chat-height"
-                value="lorem ipsuim"
+                value={widgetData.chatHeight}
+                onChange={handelDisplayFormChange}
               />
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             </div>
@@ -94,14 +107,21 @@ const DisplayForm = () => {
               <label htmlFor="chat icon">Chat Icon Size</label>
               <input
                 type="text"
-                name="chat-icon"
+                name="chatIconSize"
                 id="chat-icon"
-                value="Small(48*48 px)"
+                value={widgetData.chatIconSize}
+                onChange={handelDisplayFormChange}
               />
             </div>
             <div className="form-item">
               <label htmlFor="distance">Distance from Bottom (in px)</label>
-              <input type="number" name="distance" id="distance" value="20" />
+              <input
+                type="number"
+                name="distanceFromBottom"
+                id="distance"
+                value={widgetData.distanceFromBottom}
+                onChange={handelDisplayFormChange}
+              />
             </div>
           </div>
           <div className="widget-btm-right">
@@ -109,18 +129,20 @@ const DisplayForm = () => {
               <label htmlFor="position">Position on Screen</label>
               <input
                 type="text"
-                name="position"
+                name="postionOnScreen"
                 id="position"
-                value="Bottom Right"
+                value={widgetData.postionOnScreen}
+                onChange={handelDisplayFormChange}
               />
             </div>
             <div className="form-item">
               <label htmlFor="h-distance">Horizontal Distance (in px)</label>
               <input
                 type="number"
-                name="h-distance"
+                name="horizontalDistance"
                 id="h-ditance"
-                value="20"
+                value={widgetData.horizontalDistance}
+                onChange={handelDisplayFormChange}
               />
             </div>
           </div>

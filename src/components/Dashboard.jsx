@@ -19,7 +19,7 @@ const Dashboard = () => {
     try {
       const getProjectsByUser = async () => {
         const response = await axios.get(URL.GET_PROJECTS_BY_USER_URL);
-        console.log(response.data);
+        // console.log(response.data);
 
         dispatch(actions.addFetchedProjects(response.data.data));
       };
